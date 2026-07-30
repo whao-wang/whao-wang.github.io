@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <style>html,body{overflow-x:hidden}.hero-copy{min-width:0}</style>
+  <style>html,body{overflow-x:hidden}.hero-copy{min-width:0}.site-stats{display:flex;gap:18px;align-items:center}.site-stats span{white-space:nowrap}@media(max-width:780px){.site-stats{align-items:flex-start;flex-direction:column;gap:8px}}</style>
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -70,7 +71,7 @@
     </section>
   </main>
 
-  <footer><span>© 2026 HAO WANG</span><span>BUILT WITH CURIOSITY &amp; CODE</span></footer>
+  <footer><span>© 2026 HAO WANG</span><span class="site-stats" aria-label="网站阅读统计"><span>总访问 <b id="busuanzi_site_pv">--</b> 次</span><span>访客 <b id="busuanzi_site_uv">--</b> 人</span></span><span>BUILT WITH CURIOSITY &amp; CODE</span></footer>
   <script src="assets/main.js"></script>
 </body>
 </html>
