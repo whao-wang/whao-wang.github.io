@@ -17,4 +17,5 @@
 
 - 在 `posts/` 中新增 HTML 文件。
 - 在 `index.html` 的 `.article-grid` 中添加文章卡片。
+- 新文章必须同时显示发布日期和具体时间，统一使用北京时间，格式为 `YYYY.MM.DD HH:mm`；HTML的 `datetime` 属性使用带 `+08:00` 时区的ISO 8601格式。
 - 修改 `index.html` 中的个人简介、项目和链接。
