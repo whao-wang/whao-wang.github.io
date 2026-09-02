@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="IDAS 参会纪要：整理华为半导体关于国产 EDA 工具应用、质量保障与逻辑折叠芯片项目的现场分享。">
+  <title>IDAS 参会：国产 EDA 工具应用进展 · 王豪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
+  <style>
+    html,body{overflow-x:hidden}.post{max-width:920px;margin:auto;padding:90px 24px 130px}.post-back{font:12px 'DM Mono';color:var(--muted)}.post header{margin:75px 0 45px}.post h1{font:600 clamp(38px,6vw,68px)/1.13 Outfit,'Noto Sans SC';letter-spacing:-.045em;margin:18px 0 28px}.post-meta{font:12px 'DM Mono';color:var(--muted)}.post-hero{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);margin:0 0 58px}.post-content{max-width:820px;margin:auto;font-size:18px;line-height:2;color:var(--ink)}.post-content h2{font:600 32px Outfit,'Noto Sans SC';margin:68px 0 18px;letter-spacing:-.02em}.post-content h3{font:600 23px Outfit,'Noto Sans SC';margin:42px 0 14px}.post-content p{margin:0 0 25px}.post-content ul{padding-left:26px;margin:0 0 30px}.post-content li{margin:9px 0}.figure{margin:36px 0 46px}.figure img{display:block;width:100%;max-height:760px;object-fit:contain;border:1px solid var(--line);background:var(--panel)}.figure figcaption{color:var(--muted);font-size:13px;text-align:center;line-height:1.7;margin-top:12px}.callout{border-left:3px solid var(--accent);margin:38px 0;padding:7px 0 7px 28px;font-size:21px;line-height:1.7}.data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:32px 0}.data{border:1px solid var(--line);padding:23px;background:var(--panel)}.data b{display:block;color:var(--accent);font:500 12px 'DM Mono';margin-bottom:8px}.data strong{font:600 28px Outfit,'Noto Sans SC';display:block;margin-bottom:7px}.note{border:1px solid var(--line);background:var(--panel);padding:25px 28px;margin:32px 0}.note p:last-child{margin:0}@media(max-width:650px){.post{padding-top:65px}.post header{margin-top:55px}.post-content{font-size:17px}.post-content h2{font-size:27px}.data-grid{grid-template-columns:1fr}.figure{margin-left:-10px;margin-right:-10px}.note{padding:21px}}
+  </style>
+</head>
+<body>
+  <main class="post">
+    <a class="post-back" href="../index.html">← BACK TO HOME</a>
+    <header>
+      <p class="eyebrow">IDAS / DOMESTIC EDA</p>
+      <h1>IDAS 参会：<br>国产 EDA 工具应用进展</h1>
+      <p class="post-meta">2026.09.01 · 9 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+    </header>
+    <img class="post-hero" src="../assets/images/idas-huawei-eda-title.png" alt="IDAS 2026 现场：国产EDA工具应用进展及经验分享">
+
+    <article class="post-content">
+      <p><em>根据设计自动化产业峰会现场分享整理。本文仅转述华为半导体“国产 EDA 工具应用进展及经验分享”的内容与展示数据，不附加个人判断。</em></p>
+
+      <h2>一、应用背景：阻力在变化，动力也在变化</h2>
+      <p>分享从国产 EDA 的应用环境展开：一边是工具竞争力与算力能力的变化，另一边是工艺分叉、设计路径分叉以及产品差异化需求带来的新要求。演讲将逻辑折叠芯片作为一种新的设计形态提出。</p>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-context.png" alt="国产EDA应用变化中的阻力与动力"><figcaption>现场：国产 EDA 应用的阻力与动力</figcaption></figure>
+
+      <h2>二、逻辑折叠项目：先识别跨层挑战，再建设工具能力</h2>
+      <p>现场用“折叠纸张”的方式说明逻辑折叠的基本设想：将原本相距较远的逻辑单元在空间上拉近，以缩短全局互连，并围绕密度、性能、功耗与供电电压进行协同优化。分享中给出了项目阶段性目标，但这些目标应理解为演讲人的项目规划，而非已实现结果。</p>
+      <figure class="figure"><img src="../assets/images/idas-huawei-notes-folding.png" alt="现场录音笔记中的逻辑折叠项目目标和原理"><figcaption>现场补充记录：逻辑折叠项目目标与原理（录音笔记截图）</figcaption></figure>
+      <p>围绕这一设计形态，分享将挑战分布在器件、电路、芯片和系统多个层级：三维结构下的容量与建模、RC 与耦合效应、跨 Die 的供电和信号完整性、热—机械—电协同、芯片—封装—系统协同，以及设计规模与效率。</p>
+      <div class="callout"><strong>在分享的逻辑中，τ EDA 不是单个工具，而是面向逻辑折叠项目、逐层暴露问题并补齐能力的工具体系。</strong></div>
+      <p>现场展示的 τ EDA V0.1 已用于首款逻辑折叠芯片项目，涉及模拟与数字 EM/IR、物理验证、片上电磁、封装电磁等能力。演讲中列举的工具包括 Patron、GloryBolt、Argus-3D、eWave-3D、Metis-3D，以及 ALPS、Liberal、UVS、UVD、Nanospice、DILIGENT 等。</p>
+      <figure class="figure"><img src="../assets/images/idas-huawei-tau-challenges.png" alt="τ EDA逐步发现各层级未知挑战"><figcaption>现场：τ EDA 面临的跨层挑战</figcaption></figure>
+      <figure class="figure"><img src="../assets/images/idas-huawei-tau-tools.png" alt="首款逻辑折叠芯片项目使用的国产工具"><figcaption>现场：首款逻辑折叠芯片项目使用的国产工具（τ EDA V0.1）</figcaption></figure>
+      <figure class="figure"><img src="../assets/images/idas-huawei-tau-tools-wide.png" alt="首款逻辑折叠芯片项目使用国产工具的现场全景照片"><figcaption>现场原图：τ EDA V0.1 工具清单</figcaption></figure>
+
+      <h2>三、规模应用：从导入工具，延伸到质量与发布流程</h2>
+      <p>分享同时介绍了国产 EDA 的规模应用。现场展示的数据为：2025 年已有 17 类国产 EDA 工具进入规模应用，2026 年为 26 类；图例按工具类别或场景标示使用比例，分别为低于 20%、20%—50% 和高于 50%。这一图例不等同于整体 EDA 国产化率。</p>
+      <div class="data-grid">
+        <div class="data"><b>SCALE / 2025</b><strong>17 类</strong>进入规模应用的国产 EDA 工具</div>
+        <div class="data"><b>SCALE / 2026</b><strong>26 类</strong>现场展示的规模应用工具类别</div>
+        <div class="data"><b>RELEASE / SITE DATA</b><strong>5,000+</strong>自 2025 年 9 月以来的厂商版本发布量</div>
+      </div>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-2025.png" alt="2025年华为17类国产EDA工具规模应用"><figcaption>现场：2025 年华为 17 类工具规模应用</figcaption></figure>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-2026.png" alt="2026年华为26类国产EDA工具规模应用"><figcaption>现场：2026 年华为 26 类工具规模应用</figcaption></figure>
+      <p>为使工具导入和版本使用可控，分享提出“三层防护网”：海思工具团队自建、覆盖基础协议的用例超过 18 万；海思芯片工程师“考训打榜”形成的测试用例超过 3 万；海思真实项目 benchmark 超过 10 万。三层分别指向基础正确性、初步泛化和复杂工程泛化。</p>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-three-layers.png" alt="三层防护网构建与严格导入流程"><figcaption>现场原图：三层防护网构建，保证质量底线</figcaption></figure>
+      <p>现场展示的 Nile PV 平台覆盖版本准入、测试集管理、覆盖率度量、用例管理、执行管理、结果与看板、导入验收等环节；其下与红区、DTS 系统、供应商版本发布、开发和问题单系统相连。分享披露：自 2025 年 9 月至演讲时，供应商发版超过 5,000 次，月度发布版本超过 400 个，单版本 2—3 天闭环；供应商同步问题单超过 13,000 项。以上均为现场披露数据。</p>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-quality-loop.png" alt="数字前端工具质量提升与Nile PV平台流程"><figcaption>现场：三层防护、Nile PV 平台与问题闭环机制</figcaption></figure>
+      <figure class="figure"><img src="../assets/images/idas-huawei-notes-quality.png" alt="现场录音笔记中的质量闭环补充记录"><figcaption>现场补充记录：质量闭环相关笔记（录音笔记截图）</figcaption></figure>
+
+      <h2>四、数字仿真器：以正向构建与逆向防护推进应用</h2>
+      <p>在数字仿真器案例中，分享将工作概括为“正向构建、逆向防护”。正向侧围绕产品能力、性能与工程适配推进；逆向侧则通过测试、门禁和问题闭环防止版本质量回退。</p>
+      <p>现场给出的应用数据是：一年内国产仿真器使用人数增长 16 倍，鲲鹏核用量增长近 8 倍。分享还展示了编译时间、仿真时间和内存等指标与标杆的比较，其中页面结论为编译、仿真时间门限可突破，内存性能接近标杆。这些数据用于说明现场项目的应用进展，不应外推为所有设计与版本的通用结论。</p>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-simulator.png" alt="数字仿真器使用人数和鲲鹏核用量增长"><figcaption>现场：数字仿真器应用的“量变”与“质变”</figcaption></figure>
+
+      <h2>五、分享中的三点结论</h2>
+      <ul>
+        <li>国产 EDA 正处于从“可用”走向“好用”的关键转折点，批量替换加快；其中海思替换比例超过 50% 的工具，已接受海思项目和用户的严苛应用挑战。</li>
+        <li>在逻辑折叠芯片这一设计形态上，演讲人认为国产 EDA 具备整体协同的先发优势。</li>
+        <li>国产 EDA 的持续发展需要晶圆厂、Fabless、IP 厂商及产业链更多真实项目的支持和使用。</li>
+      </ul>
+      <figure class="figure"><img src="../assets/images/idas-huawei-eda-summary.png" alt="从海思自身应用观察国产EDA变化趋势"><figcaption>现场：从海思自身应用观察国产 EDA 变化趋势</figcaption></figure>
+      <div class="note"><p>本文按现场分享的两条主线整理：一条是逻辑折叠项目及 τ EDA 的技术路线；另一条是国产 EDA 的规模应用、质量保障与版本协同实践。</p></div>
+    </article>
+  </main>
+  <script src="../assets/comments.js"></script>
+  <script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches))document.body.classList.add('dark')</script>
+</body>
+</html>
