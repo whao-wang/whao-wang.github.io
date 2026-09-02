@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="IDAS 参会纪要：从产品思路与场景选择两个角度，整理 UVH/GOAT 硬件验证智能体的现场展示。">
+  <title>IDAS 参会：UVH/GOAT 硬件验证智能体 · 王豪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
+  <style>
+    html,body{overflow-x:hidden}.post{max-width:920px;margin:auto;padding:90px 24px 130px}.post-back{font:12px 'DM Mono';color:var(--muted)}.post header{margin:75px 0 45px}.post h1{font:600 clamp(38px,6vw,68px)/1.13 Outfit,'Noto Sans SC';letter-spacing:-.045em;margin:18px 0 28px}.post-meta{font:12px 'DM Mono';color:var(--muted)}.post-hero{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);margin:0 0 58px}.post-content{max-width:820px;margin:auto;font-size:18px;line-height:2;color:var(--ink)}.post-content h2{font:600 32px Outfit,'Noto Sans SC';margin:68px 0 18px;letter-spacing:-.02em}.post-content h3{font:600 23px Outfit,'Noto Sans SC';margin:42px 0 14px}.post-content p{margin:0 0 25px}.post-content ul{padding-left:26px;margin:0 0 30px}.post-content li{margin:9px 0}.figure{margin:36px 0 46px}.figure img{display:block;width:100%;max-height:760px;object-fit:contain;border:1px solid var(--line);background:var(--panel)}.figure figcaption{color:var(--muted);font-size:13px;text-align:center;line-height:1.7;margin-top:12px}.figure.portrait img{max-height:900px}.callout{border-left:3px solid var(--accent);margin:38px 0;padding:7px 0 7px 28px;font-size:22px;line-height:1.7}.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:32px 0}.choice{border:1px solid var(--line);padding:23px;background:var(--panel)}.choice b{display:block;color:var(--accent);font:500 12px 'DM Mono';margin-bottom:9px}.note{border:1px solid var(--line);background:var(--panel);padding:25px 28px;margin:32px 0}.note p:last-child{margin:0}@media(max-width:650px){.post{padding-top:65px}.post header{margin-top:55px}.post-content{font-size:17px}.post-content h2{font-size:27px}.choice-grid{grid-template-columns:1fr}.figure{margin-left:-10px;margin-right:-10px}.note{padding:21px}}
+  </style>
+</head>
+<body>
+  <main class="post">
+    <a class="post-back" href="../index.html">← BACK TO HOME</a>
+    <header>
+      <p class="eyebrow">IDAS / VERIFICATION</p>
+      <h1>IDAS 参会：<br>UVH/GOAT 硬件验证智能体</h1>
+      <p class="post-meta">2026.09.02 · 8 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+    </header>
+
+    <img class="post-hero" src="../assets/images/uvh-goat-debug-overview.jpg" alt="现场展示的UVH/GOAT硬件验证能力">
+
+    <article class="post-content">
+      <p><em>根据 IDAS 现场分享、录音与拍摄整理。本文只记录现场展示的产品思路和场景选择，不将案例结果视为通用能力或产品评测结论。</em></p>
+      <p>这次分享里，比起讨论“智能体能做什么”，更值得记录的是两个具体问题：合见把智能能力放在验证流程的什么位置，以及为什么先从这些场景开始。</p>
+
+      <h2>一、产品思路：嵌入已有验证流程，而不是另起一套流程</h2>
+      <p>从现场展示看，UVH/GOAT 的切入点是既有的验证工程与工具链。它覆盖的对象包括工程迁移、编译收敛、Runtime、硬件调试/RCA 和 Regression；每个环节对应不同的 Agent 能力，而不是试图用一个通用 Agent 覆盖所有工作。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-verification-flow.jpg" alt="UVH/GOAT面向硬件验证流程的专家Agent架构"><figcaption>现场展示的验证流程与专家 Agent 覆盖</figcaption></figure>
+      <p>这里的重点不在“多 Agent”这个形式，而在于 Agent 的输入、可调用工具、工程对象和验收条件都被限定在具体环节中。客户原有的验证目标、资源预算、权限边界和验收责任仍然保留；现场也提到可以接入客户自有 Agent、MCP、Skill 和第三方工具。</p>
+
+      <div class="callout"><strong>从展示方式看，UVH/GOAT 更像是在已有 UVH Compiler、Runtime 和调试能力之外，增加一层面向工程任务的编排与执行能力。</strong></div>
+
+      <p>可靠性设计也不是只看模型是否“一次答对”。现场的 Compile 案例展示了多轮执行：工具报错、结合上下文做局部修复、重新编译、再根据新的工具反馈调整。模型的路径可以有差异，但最终修改要由真实工具结果验证。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-compile-loop.jpg" alt="Compile Agent根据工具反馈多轮修复并重新编译"><figcaption>Compile Agent：根据工具反馈进行多轮修复与重编译</figcaption></figure>
+      <p>更关键的是，修改、工具输出和复跑结果需要能够继续回查。现场展示中，修改可以定位到具体文件、行号和引用位置；一个案例记录了 13 次迭代、处理 6 个编译错误。这个数字应理解为单一现场案例，而不是一般性能承诺。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-porting-evidence.jpg" alt="现场展示的工程修改摘要和文件定位信息"><figcaption>现场展示的修改摘要、文件与引用位置定位</figcaption></figure>
+      <figure class="figure"><img src="../assets/images/uvh-goat-compile-evidence.jpg" alt="工程修改和工具结果可以继续回查"><figcaption>工程修改、工具输出与迭代过程的回查界面</figcaption></figure>
+      <p>因此，现场呈现的闭环是：工具反馈 → 判断与修改 → 工具复跑 → 证据汇总 → 工程师复核。它的作用是让后续审核能够回到工程对象和工具证据，而不是只接受一句“已经修好”。</p>
+
+      <h2>二、场景选择：先做边界清楚、工具可复验的任务</h2>
+      <p>从案例和路线图反推，合见没有从“自动完成整个芯片验证”这类大目标开始，而是优先选择了几个具备共同特征的任务：</p>
+      <div class="choice-grid">
+        <div class="choice"><b>01 / BOUNDED</b>输入、输出和可修改范围比较明确。</div>
+        <div class="choice"><b>02 / VERIFIABLE</b>工具能够直接给出成功、失败或下一轮反馈。</div>
+        <div class="choice"><b>03 / MEASURABLE</b>可用编译通过、等待时间、迭代次数等指标衡量效果。</div>
+      </div>
+      <p>这不是官方给出的场景选择公式，而是从现场展示中可以看到的共同条件。</p>
+
+      <h3>Porting：工程迁移的验收条件很明确</h3>
+      <p>Porting Agent 的输入是已有 Simulation 工程、第三方平台项目或其他 UVH 工程；它读取 DUT file list、top module、port 等信息，建立 UVH 所需工程，交付 Compile-Ready Project。这个任务不一定最“炫”，但环境配置、脚本修改和经验判断密集，且结果可以直接由下一步编译验证。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-porting-quickstart.jpg" alt="Porting Agent将已有工程转为UVH可编译工程"><figcaption>Porting Agent：将已有工程转为 UVH 可编译工程</figcaption></figure>
+
+      <h3>Compile Closure：让工具反馈驱动局部收敛</h3>
+      <p>Compile 场景的价值在于有很强的闭环：执行、报错、定位、局部修改、重编译。现场展示了仿真语义中的 <code>#delay</code> 进入硬件综合后形成组合环的案例，也展示了多源时钟场景下为工具补充控制语义的处理。要点不是让 Agent 改变 RTL 功能，而是补齐工程转换所需的配置或语义，使工具能够继续完成转换。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-delay-case.jpg" alt="仿真delay在硬件综合后形成组合环的编译案例"><figcaption>现场案例：仿真 <code>#delay</code> 在硬件综合后形成组合环</figcaption></figure>
+
+      <h3>Runtime 与 Debug：减少流程停顿，缩小调试动作范围</h3>
+      <p>Runtime Agent 面向的是流程中的人工等待：Build 完成后，等待 UART Prompt、发送命令、观察响应并推进测试。这里的价值更接近减少任务在人员之间、班次之间停顿的时间，而不只是替人输入几条命令。</p>
+      <p>Debug Agent 则接收“看什么信号、什么条件触发、前后抓多少周期”这类调试意图，再组织 Save &amp; Restore、Record &amp; Replay、Trigger、FVD/FFVD 等已有能力。现场提及的约 10 倍效果，同样应理解为分享案例，而不应外推为普遍结果。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-debug-overview.jpg" alt="Debug Agent与波形抓取和问题定位能力"><figcaption>Debug Agent：把调试目标转换为波形抓取与问题定位动作</figcaption></figure>
+
+      <h2>三、路线图：先积累可复验任务，再扩展工程记忆</h2>
+      <p>现场 Roadmap 描述的近期重点，是复杂工程下的模型适配、错误修复和交付一致性；中期开始沉淀可验证、可复用的工程记忆，包括任务的适用条件、工具证据和验证结果；长期才延伸到系统级规划和方案级验证能力。</p>
+      <figure class="figure"><img src="../assets/images/uvh-goat-roadmap.jpg" alt="UVH/GOAT的能力演进路线图"><figcaption>现场展示的 UVH/GOAT 能力演进路线图</figcaption></figure>
+      <div class="note"><p>对外部观察者而言，后续更值得跟踪的不是“用了什么模型”，而是这些场景在不同项目、工具版本和客户工程中的通过率、人工介入比例、回退机制和交付一致性。它们决定了这套方法能否从现场案例进入可重复的工程实践。</p></div>
+    </article>
+  </main>
+  <script src="../assets/comments.js"></script>
+  <script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches))document.body.classList.add('dark')</script>
+</body>
+</html>
