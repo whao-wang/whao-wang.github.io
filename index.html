@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <style>html,body{overflow-x:hidden}.hero-copy{min-width:0}.site-stats{display:flex;gap:18px;align-items:center}.site-stats span{white-space:nowrap}@media(max-width:780px){.site-stats{align-items:flex-start;flex-direction:column;gap:8px}}</style>
+  <style>html,body{overflow-x:hidden}.hero-copy{min-width:0}.site-stats{display:flex;gap:18px;align-items:center}.series{margin:0 0 54px;border:1px solid var(--line);background:var(--panel)}.series summary{cursor:pointer;list-style:none;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;font:600 18px Outfit,'Noto Sans SC';color:var(--ink)}.series summary::-webkit-details-marker{display:none}.series summary::after{content:'＋';font:24px 'DM Mono';color:var(--accent)}.series[open] summary{border-bottom:1px solid var(--line)}.series[open] summary::after{content:'−'}.series-count{font:12px 'DM Mono';color:var(--muted);margin-left:auto;margin-right:18px}.series .article-grid{padding:0 18px 18px}@media(max-width:780px){.site-stats{align-items:flex-start;flex-direction:column;gap:8px}.series summary{padding:18px}.series .article-grid{padding:0 10px 10px}}</style>
   <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 </head>
 <body>
@@ -45,8 +45,10 @@
     </section>
 
     <section id="writing" class="section writing">
-      <div class="section-heading reveal"><div><p class="eyebrow">01 / IDAS 2026</p><h2>IDAS 参会</h2></div><p>来自设计自动化产业峰会的现场记录、圆桌议题与产品分享。</p></div>
-      <div class="article-grid">
+      <div class="section-heading reveal"><div><p class="eyebrow">01 / WRITING</p><h2>最近在想</h2></div><p>把工作中的复杂问题，整理成可以复用的思考框架。</p></div>
+      <details class="series reveal">
+        <summary>IDAS 参会 <span class="series-count">04 篇</span></summary>
+        <div class="article-grid">
         <a class="article featured reveal" href="posts/idas-domestic-eda-application-progress.html">
           <div class="article-index">IDAS / 01</div><div class="article-body"><span class="tag">IDAS × 国产 EDA</span><h3>IDAS 参会：国产 EDA 工具应用进展</h3><p>按现场 PPT 整理华为半导体关于规模应用、质量体系、版本闭环与逻辑折叠项目的分享。</p><div class="meta"><time datetime="2026-09-01">2026.09.01</time><span>9 MIN READ</span></div></div><span class="arrow">↗</span>
         </a>
@@ -59,9 +61,8 @@
         <a class="article featured reveal" href="posts/logic-folding-and-3d-chip-design.html">
           <div class="article-index">IDAS / 04</div><div class="article-body"><span class="tag">EDA × 3D IC</span><h3>IDAS 参会：逻辑折叠与三维芯片设计</h3><p>从逻辑折叠、True-3D placement 到 NodeClosure，梳理三维芯片设计路线与工程落地思路。</p><div class="meta"><time datetime="2026-09-02">2026.09.02</time><span>12 MIN READ</span></div></div><span class="arrow">↗</span>
         </a>
-      </div>
-
-      <div class="section-heading reveal" style="margin-top:120px"><div><p class="eyebrow">02 / WRITING</p><h2>最近在想</h2></div><p>把工作中的复杂问题，整理成可以复用的思考框架。</p></div>
+        </div>
+      </details>
       <div class="article-grid">
         <a class="article featured reveal" href="posts/love-life-xuzhou.html">
           <div class="article-index">001</div><div class="article-body"><span class="tag">生活与旅行</span><h3>热爱生活之徐州篇</h3><p>踩着暑假的尾巴，一家人去徐州吃饭、逛街、唱歌，再来一场随缘式晨跑。</p><div class="meta"><time datetime="2026-08-29">2026.08.29</time><span>5 MIN READ</span></div></div><span class="arrow">↗</span>
