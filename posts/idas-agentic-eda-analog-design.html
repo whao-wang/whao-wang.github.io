@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="IDAS 参会纪要：整理杨帆教授关于设计意图 DSL、模拟电路模板、尺寸优化、SMT 物理实现与工艺迁移的现场分享。">
+  <title>IDAS 参会｜杨帆：从设计意图到物理实现——模拟电路 Agentic EDA 的工程路径 · 王豪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
+  <style>
+    html,body{overflow-x:hidden}.post{max-width:920px;margin:auto;padding:90px 24px 130px}.post-back{font:12px 'DM Mono';color:var(--muted)}.post header{margin:75px 0 45px}.post h1{font:600 clamp(38px,6vw,68px)/1.13 Outfit,'Noto Sans SC';letter-spacing:-.045em;margin:18px 0 28px}.title-sub{display:block;margin-top:14px;font-size:.62em;line-height:1.3;letter-spacing:-.025em}.post-meta{font:12px 'DM Mono';color:var(--muted)}.post-hero{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);margin:0 0 58px}.post-content{max-width:820px;margin:auto;font-size:18px;line-height:2;color:var(--ink)}.post-content h2{font:600 32px Outfit,'Noto Sans SC';margin:68px 0 18px;letter-spacing:-.02em}.post-content h3{font:600 23px Outfit,'Noto Sans SC';margin:42px 0 14px}.post-content p{margin:0 0 25px}.post-content ul{padding-left:26px;margin:0 0 30px}.post-content li{margin:9px 0}.figure{margin:36px 0 46px}.figure img{display:block;width:100%;max-height:760px;object-fit:contain;border:1px solid var(--line);background:var(--panel)}.figure figcaption{color:var(--muted);font-size:13px;text-align:center;line-height:1.7;margin-top:12px}.callout{border-left:3px solid var(--accent);margin:38px 0;padding:7px 0 7px 28px;font-size:22px;line-height:1.7}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:34px 0}.flow div{border:1px solid var(--line);background:var(--panel);padding:22px 17px;min-height:112px}.flow b{display:block;color:var(--accent);font:500 12px 'DM Mono';margin-bottom:9px}.note{border:1px solid var(--line);background:var(--panel);padding:25px 28px;margin:32px 0}.note p:last-child{margin:0}@media(max-width:700px){.post{padding-top:65px}.post header{margin-top:55px}.post-content{font-size:17px}.post-content h2{font-size:27px}.flow{grid-template-columns:1fr 1fr}.figure{margin-left:-10px;margin-right:-10px}.note{padding:21px}}@media(max-width:430px){.flow{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="post">
+    <a class="post-back" href="../index.html">← BACK TO HOME</a>
+    <header>
+      <p class="eyebrow">IDAS / AGENTIC EDA</p>
+      <h1>IDAS 参会｜杨帆：<br>从设计意图到物理实现<br><span class="title-sub">模拟电路 Agentic EDA 的工程路径</span></h1>
+      <p class="post-meta">2026.09.09 01:04 · 9 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+    </header>
+
+    <img class="post-hero" src="../assets/images/idas-agentic-eda-intent-dsl.jpg" alt="IDAS现场分享中的模拟电路意图DSL页面">
+
+    <article class="post-content">
+      <p><em>根据 2026 年 9 月 2 日 IDAS 现场分享、录音与拍摄整理。转写中的 gm/Id、SMT、A*、DRC/LVS、ECO、PDK 与 PEX 等术语已结合现场页面校正。本文记录报告展示的方法与案例，不将单次案例外推为通用能力。</em></p>
+      <p>杨帆教授的分享围绕一个具体问题展开：当智能体进入模拟电路设计后，怎样把自然语言需求转成可以被分析器、优化器和 EDA 工具稳定执行的任务。报告给出的主线是：先用 DSL 承载设计意图，以模板复用设计经验，再把尺寸与物理实现分别交给适合的确定性求解器。</p>
+
+      <h2>一、先把“为什么这样设计”写出来</h2>
+      <p>报告首先引入了意图 DSL。以 PMOS LDO 为例，DSL 不只写目标指标，还描述可调变量、评估器、优化策略、仿真预算和硬约束；在结构层，它继续标注输入对管、负载对管、尾管和功率管等器件角色，并把匹配、共质心、镜像、屏蔽、宽线和最大走线长度等要求写入同一份描述。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-intent-dsl.jpg" alt="PMOS LDO的意图DSL描述"><figcaption>现场：PMOS LDO 的指标、变量、优化预算、器件角色与走线约束</figcaption></figure>
+      <p>这层表示位于自然语言需求与具体 EDA 操作之间。智能体可以参与理解和编排，但后续工具拿到的是结构化目标、变量和约束，而不是一段需要反复猜测的自然语言。</p>
+
+      <h2>二、模板承载一类电路的设计经验</h2>
+      <p>报告区分了“模板”和“设计意图”：模板面向一类电路，保存结构、尺寸顺序以及指标与变量的对应关系；意图面向当前这一次设计，给出具体指标、变量和预算。选择模板后，再生成本次任务的意图 DSL。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-template.jpg" alt="基于模板描述模拟电路拓扑"><figcaption>现场：模板是可复用的设计经验，意图描述本次具体任务</figcaption></figure>
+      <p>现场列出的模板库包括运放、比较器、LDO、带隙基准、VCO、ADC 子模块和 PLL 子模块等。右侧的 LDO 模板进一步写出了设计顺序：先确定压差与电流通路，再闭合环路跨导与补偿，之后处理功率管驱动和输出电容，最后验证线性与负载瞬态。</p>
+      <div class="callout"><strong>从现场架构看，智能体主要负责选择、组合与推进流程；模板负责提供已有设计方法，分析器和 EDA 工具负责给出可验证结果。</strong></div>
+
+      <h2>三、尺寸层：先判可行，再给初值，最后微调</h2>
+      <p>尺寸优化没有直接从黑盒搜索开始。第一步是符号分析：根据小信号模型和近似方程快速判断指标组合是否可行，不可行的组合不进入后续仿真优化。现场示例给出了两级运放的 DC 增益 69.5 dB、GBW 27.5 MHz、相位裕度 66.2°，以及 LDO 环路相位裕度和 PSRR 的快速估计。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-symbolic-analysis.jpg" alt="符号分析快速判断模拟电路可行性"><figcaption>现场：符号分析承担可行性判断，减少无效仿真</figcaption></figure>
+      <p>第二步用 gm/Id 方法给出一组合理工作点。现场以 50 MHz GBW 为目标，反推出所需跨导，再根据 gm/Id 选择电流和器件宽度，并通过扫描验证工作区。第三步才进入黑盒优化，对 SPICE 仿真结果做最后微调。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-gmid-blackbox.jpg" alt="gmId获得初值并由黑盒优化微调"><figcaption>现场：gm/Id 给初值，黑盒优化完成最后一段搜索</figcaption></figure>
+      <p>报告给出的数据是：运放补偿经过 72 次评估，相位裕度由 38.3°提高到 77.0°，GBW 由 32.6 MHz提高到 68.9 MHz；比较器经过 75 次评估，延迟由 8.80 ps降至 4.29 ps，同时功耗和失调下降。它说明的是这两个案例中的搜索过程与结果。</p>
+
+      <h2>四、物理层：关键部分用 SMT，普通走线保留 A*</h2>
+      <p>传统的解析布局加逐线网 A* 布线容易陷入局部决策：前面的器件位置和走线占用资源后，后续网络可能无法收敛。报告尝试把不重叠、网格、并间距、对称、匹配、共质心以及面积和线长目标统一编码到 SMT 问题中，整体求得可行解。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-smt-placement.jpg" alt="解析布局与A星布线问题及SMT整体求解"><figcaption>现场：从“布不通再修”转向统一约束下求解可行布局</figcaption></figure>
+      <p>考虑到全部网络都用 SMT 会带来较高复杂度，报告采用了混合策略：差分、匹配、基准、反馈和时钟等关键网络由 SMT 直接求解；普通网络只估计容量并预留资源，仍使用 A* 或结构化布线。布线容量也作为变量与器件位置一起求解，使走线结果能够反过来约束布局。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-critical-routing.jpg" alt="关键网SMT求解和非关键网A星布线"><figcaption>现场：关键网与非关键网分开处理，布局和布线协同</figcaption></figure>
+
+      <h2>五、违规修复按影响范围分层</h2>
+      <p>版图生成后的错误不采用统一的重新布局或重新布线，而是按照影响范围分流：</p>
+      <div class="flow">
+        <div><b>GLOBAL SMT</b>不重叠、对称、并间距等结构问题，重新求解。</div>
+        <div><b>LOCAL SMT</b>逃逸、via、局部间距等问题，在布局后局部求解。</div>
+        <div><b>A*</b>非关键走线问题，拆线后重新布线。</div>
+        <div><b>ECO</b>网格对齐、小 jog 等机械问题，尽量不改变搜索空间。</div>
+      </div>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-drc-lvs-repair.jpg" alt="DRC和LVS多层次修复策略"><figcaption>现场：不同层级的 DRC/LVS 问题交给不同修复方式</figcaption></figure>
+
+      <h2>六、两个端到端实例</h2>
+      <h3>StrongARM 比较器</h3>
+      <p>StrongARM 案例从包含 15 项指标、4 个变量的意图 DSL 出发，完成 9 个器件和 9 个网络的电路设计，经过 75 次黑盒评估，再进入 SMT 布局布线。现场页面显示：4 个器件组、3 条布线通道和 9 个网络全部布通，版图自动生成约 17.4 秒；经过两轮 SMT 与 28 处 ECO 修复，最终 sign-off DRC 为 0 违规。案例采用 TSMC N28 环境。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-strongarm.jpg" alt="StrongARM比较器从意图到真实GDS的全流程"><figcaption>现场：StrongARM 比较器从意图、尺寸优化到真实 GDS</figcaption></figure>
+
+      <h3>两级 Miller 运放</h3>
+      <p>两级 Miller 运放案例包含 18 项指标、4 个变量，依次经过符号分析、gm/Id 初始化、72 次黑盒评估以及物理实现。现场给出的物理规模为 17 个器件、9 种 PCell、64 条走线，经过 5 轮 ECO 修复后达到 DRC clean。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-miller-opamp.jpg" alt="两级Miller运放的端到端设计流程"><figcaption>现场：两级 Miller 运放的尺寸与物理实现流程</figcaption></figure>
+      <div class="note"><p>两页实例明确展示了前仿优化、真实 PDK 下的版图生成和 DRC 修复；现场页面没有给出 PEX 后仿数据。因此，这里能够确认的是“前仿结果 + 物理规则闭环”，不能据此认定版图后电气性能也已自动闭环。</p></div>
+
+      <h2>七、工艺迁移：保留意图，重新表征工艺</h2>
+      <p>报告把迁移信息分成两类。工艺相关部分包括 PDK 规则、PCell、模型和需要重新标定的 gm/Id 数据；工艺无关部分包括意图 DSL、模板中的拓扑与设计步骤，以及布局布线和验证流程。更换 PDK 后，用同一份描述重新运行尺寸和物理实现。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-pdk-migration.jpg" alt="换PDK不换设计意图的工艺迁移方法"><figcaption>现场：迁移被定义为重新表征工艺，而不是从头描述设计目标</figcaption></figure>
+      <p>这套拆分保留了“要实现什么”，但并不自动证明原拓扑在新工艺下仍然合适。拓扑、设计顺序和指标—变量关系是否需要调整，仍需要通过跨 PDK 案例进一步验证。</p>
+
+      <h2>八、关于“创新”的现场回答</h2>
+      <p>报告将智能体探索新设计的可能路径分成随机探索与深度推理：前者在 DSL 限定的约束空间内进行拓扑和参数采样，后者利用符号分析解释性能瓶颈、灵敏度和不可行组合，为搜索提供方向。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-innovation.jpg" alt="随机探索与深度推理两种创新路径"><figcaption>现场：随机探索扩大范围，深度推理分析瓶颈并排除不可行组合</figcaption></figure>
+      <p>问答环节中，有专家追问系统是否已经发现人类没有见过的新拓扑。杨帆教授的回答是目前没有。他提到，探索结果可能只是已有结构的等价变化；即使得到陌生架构，如果缺少解释，工程师也很难在真实设计中采用。</p>
+
+      <h2>九、现场结论与未展示部分</h2>
+      <p>总结页把报告方法压缩为三项分工：人类贡献创意和架构，智能体补充知识并串联流程，EDA 与中间件弥补语义到实现之间的鸿沟。对应的实现链路是：DSL 承载设计意图，解析分析与 gm/Id 给出初值，黑盒优化微调，再由意图驱动物理实现。</p>
+      <figure class="figure"><img src="../assets/images/idas-agentic-eda-summary.jpg" alt="杨帆教授关于Agentic EDA方法的总结页"><figcaption>现场总结：DSL、解析初值、黑盒微调与意图驱动物理实现</figcaption></figure>
+      <p>从本次展示可以确认的范围包括：设计意图结构化、模板选择、尺寸初始化与仿真优化、关键网与普通网络的混合求解，以及 DRC 分层修复。现场没有展示复杂模拟或混合信号系统的规模化结果，也没有给出两个实例的 PEX 后仿闭环数据；新拓扑探索仍处于研究问题阶段。</p>
+    </article>
+  </main>
+  <script src="../assets/comments.js"></script>
+  <script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches))document.body.classList.add('dark')</script>
+</body>
+</html>
