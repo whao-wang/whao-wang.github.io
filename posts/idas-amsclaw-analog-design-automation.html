@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="IDAS 参会纪要：整理林平宏教授关于 Codex 全栈 LDO、AMSclaw、Acell、AMSgen 与模拟电路前后端闭环的现场分享。">
+  <title>IDAS 参会｜林平宏：AMSclaw 如何把模拟电路设计串成闭环 · 王豪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
+  <style>
+    html,body{overflow-x:hidden}.post{max-width:920px;margin:auto;padding:90px 24px 130px}.post-back{font:12px 'DM Mono';color:var(--muted)}.post header{margin:75px 0 45px}.post h1{font:600 clamp(38px,6vw,68px)/1.13 Outfit,'Noto Sans SC';letter-spacing:-.045em;margin:18px 0 28px}.title-sub{display:block;margin-top:14px;font-size:.62em;line-height:1.3;letter-spacing:-.025em}.post-meta{font:12px 'DM Mono';color:var(--muted)}.post-hero{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);margin:0 0 58px}.post-content{max-width:820px;margin:auto;font-size:18px;line-height:2;color:var(--ink)}.post-content h2{font:600 32px Outfit,'Noto Sans SC';margin:68px 0 18px;letter-spacing:-.02em}.post-content h3{font:600 23px Outfit,'Noto Sans SC';margin:42px 0 14px}.post-content p{margin:0 0 25px}.post-content ul{padding-left:26px;margin:0 0 30px}.post-content li{margin:9px 0}.figure{margin:36px 0 46px}.figure img{display:block;width:100%;max-height:760px;object-fit:contain;border:1px solid var(--line);background:var(--panel)}.figure figcaption{color:var(--muted);font-size:13px;text-align:center;line-height:1.7;margin-top:12px}.callout{border-left:3px solid var(--accent);margin:38px 0;padding:7px 0 7px 28px;font-size:22px;line-height:1.7}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:34px 0}.flow div{border:1px solid var(--line);background:var(--panel);padding:22px 17px;min-height:112px}.flow b{display:block;color:var(--accent);font:500 12px 'DM Mono';margin-bottom:9px}.note{border:1px solid var(--line);background:var(--panel);padding:25px 28px;margin:32px 0}.note p:last-child{margin:0}@media(max-width:700px){.post{padding-top:65px}.post header{margin-top:55px}.post-content{font-size:17px}.post-content h2{font-size:27px}.flow{grid-template-columns:1fr 1fr}.figure{margin-left:-10px;margin-right:-10px}.note{padding:21px}}@media(max-width:430px){.flow{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="post">
+    <a class="post-back" href="../index.html">← BACK TO HOME</a>
+    <header>
+      <p class="eyebrow">IDAS / AMSCLAW</p>
+      <h1>IDAS 参会｜林平宏：<br>AMSclaw 如何把<br>模拟电路设计串成闭环</h1>
+      <p class="post-meta">2026.09.09 23:30 · 11 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+    </header>
+
+    <img class="post-hero" src="../assets/images/idas-amsclaw-agent-stack.jpg" alt="IDAS现场展示的AMSclaw多智能体协同架构">
+
+    <article class="post-content">
+      <p><em>根据 IDAS 2026 现场分享、17 张拍摄页面与会后整理记录编写。文中的面积、迭代次数和流片信息均按现场页面转述；不同工具的比较条件并不完全一致，因此只用于说明报告中的工程路线。</em></p>
+      <p>林平宏教授的报告同时展示了两类实践：一类是让 Codex 直接进入 Virtuoso OA、Spectre 和 Calibre 工作流，完成一次 LDO 的端到端设计；另一类是把模拟电路知识、专用数据、尺寸优化和自动版图固化为 AMSclaw。两者的区别不在于有没有大模型，而在于设计经验是否已经变成可复用的系统能力。</p>
+
+      <h2>一、从三波自动化到 L1、L2、L3</h2>
+      <p>报告先回顾了模拟设计自动化的三波演进：早期以规则和知识为主，随后进入模板、优化与仿真驱动的方法，再到今天的 AI/ML 与智能体。这里的“新”不是抹掉原来的工具，而是把过去分散在脚本、算法和工程师经验中的环节重新组织起来。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-automation-waves.jpg" alt="模拟设计自动化的三波演进"><figcaption>现场：模拟设计自动化从规则、模板与优化，走向 AI/ML 驱动</figcaption></figure>
+      <p>现场又用 L1—L3 区分不同成熟度。L1 是通用智能体调用现有 EDA 工具，能够完成明确、边界较窄的任务；L3 则把电路数据、拓扑选择、尺寸优化、物理实现、验证证据和 ECO 回放连成可复用流程。报告的重点正是从一次性的 L1 实践，走向 AMSclaw 这样的 L3 系统。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-l1-l2-l3.jpg" alt="AI EDA的L1到L3分类"><figcaption>现场：报告者对 AI EDA 的 L1—L3 简化分类</figcaption></figure>
+
+      <h2>二、L1 实践：让 Codex 生成一颗完整 LDO</h2>
+      <p>第一部分实验把 Codex 接入 Virtuoso OA、Spectre 与 Calibre。任务不是生成一段示例代码，而是交付可以继续验证的工程：OA schematic、symbol 与 layout，Maestro testbench、输出与指标，Calibre DRC/LVS/PEX 流程，DSPF 后仿链路，以及最终 GDS。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-codex-overview.jpg" alt="Codex执行LDO项目的整体情况"><figcaption>现场：Codex 进入 Virtuoso OA、Spectre、Calibre 日常工程链路</figcaption></figure>
+      <p>这次 N28 LDO 实践包括 PMOS-pass core、PAD60GU 与 ESD top、RCC/DSPF PEX、post-PEX suite，并形成了可提交的 GDS。现场估算完整工程跨度约一到两周，过程中发生大量脚本修改、ECO 与检查点回放，token 消耗达到百万级。</p>
+      <p>版图生成被拆成七步：定义输入约束、模拟退火布局、A* 布线引导、生成 OA 追踪脚本、实例化真实 PCell、局部重叠与 ECO 修复，最后运行 sign-off 检查。页面底部记录了 305 次设计脚本迭代、339 次版图修改迭代，以及 40 次人工干预。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-codex-seven-steps.jpg" alt="Codex生成LDO版图的七个步骤"><figcaption>现场：一次 L1 LDO 版图实践中的七步流程与迭代统计</figcaption></figure>
+      <p>它说明通用智能体已经能沿真实工具链推进一个完整任务，也暴露出这种方式的成本：流程依赖大量 prompt、脚本、状态检查和人工纠偏。每做一个新电路，如果仍需重新经历同样的试错，经验就没有真正沉淀下来。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-l1-layout.jpg" alt="L1方式自动生成的LDO版图"><figcaption>现场：L1 方法生成的含 PAD、ESD 与片上电容的 LDO 版图</figcaption></figure>
+
+      <h2>三、L3 不是更多 Agent，而是固定设计接口</h2>
+      <p>AMSclaw 把一次工程拆成六层，每层都有明确输入和输出：</p>
+      <div class="flow">
+        <div><b>SPEC / INTENT</b>指标、benchmark、约束与意图。</div>
+        <div><b>TOPOLOGY</b>由 AMSnet 与检索结果决定候选结构。</div>
+        <div><b>SIZING</b>AMSight 负责尺寸、多目标与 PVT 优化。</div>
+        <div><b>LAYOUT</b>AMSgen-A 用 Acell、Amacro 生成物理实现。</div>
+      </div>
+      <p>其后还有验证层与编排层：Maestro、Spectre、Calibre、DSPF 提供可追溯证据，Codex/AMSclaw 负责调度、检查、版本回放和 ECO 循环。这样，需求、拓扑、尺寸、版图、sign-off 和报告可以顺序流转，也可以从后端结果反向回到前端。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-agent-stack.jpg" alt="AMSclaw从意图到验证的多层架构"><figcaption>现场：AMSclaw 将 spec、topology、sizing、layout、verification 与 agent orchestration 分层</figcaption></figure>
+      <div class="callout"><strong>这套架构的重点不是让一个 Agent 包办所有工作，而是把每个阶段交给有清晰边界的模型、算法与 EDA 工具。</strong></div>
+      <p>报告把背后的取舍概括为：晶体管级版图必须进入完整设计流，但为了提高效率，又需要尽量与具体 PDK 解耦。Acell 正是用于处理这组矛盾；前端的 AMSnet、AMSgen/AMSight 与后端 AMSgen-A，则分别承担电路表示、拓扑尺寸和自动版图任务。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-ideas.jpg" alt="AMSclaw的研究思路与前后端组成"><figcaption>现场：AMSclaw 的研究取舍，以及前端、后端模块划分</figcaption></figure>
+
+      <h2>四、AMSgen：从指标到拓扑，再到尺寸</h2>
+      <p>在前端，流程先根据规格判断拓扑类型，再从 AMSnet-q 检索候选电路，最后结合自动生成的 testbench 做尺寸优化。现场曲线显示，加入局部电路标注后，优化轨迹更快达到更高的目标值；这也是专用电路表示相较通用语言表示的作用之一。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-topology-sizing.jpg" alt="AMSgen的拓扑生成和晶体管尺寸优化"><figcaption>现场：规格判断、RAG 检索拓扑与 testbench 引导 sizing</figcaption></figure>
+      <p>报告还展示了一个基础模型对运放结构判断的对比：通用模型的注意力虽然覆盖了电路图，却没有稳定识别出完整运放；AMSnet-q 能给出相应判断。这个例子支持的是“专用数据和表示有必要”，并不能单凭一页对比证明模型在所有拓扑任务上都更好。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-baseline-llm.jpg" alt="AMSnet-q与通用大模型识别电路结构的对比"><figcaption>现场：电路专用模型与通用大模型在拓扑理解任务上的对比</figcaption></figure>
+      <p>尺寸层采用 AI-native sizing tool 与 harness：Agent 负责根据任务生成和调整优化配置，专用工具负责仿真调用、多目标搜索、Pareto 权衡和敏感度分析。报告的总结页称，系统已经为 6000 个以上、且仍在增长的电路自动生成 testbench 并执行仿真。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-sizing-harness.jpg" alt="AI原生尺寸优化工具和Harness"><figcaption>现场：Agent、专用 sizing tool 与自动配置任务的 harness</figcaption></figure>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-sizing-pareto.jpg" alt="尺寸优化中的多目标搜索和Pareto分析"><figcaption>现场：多目标优化、Pareto 权衡、仿真结果与敏感度分析</figcaption></figure>
+
+      <h2>五、Acell：前端和后端之间的桥</h2>
+      <p>Acell 是整套路线里最关键的物理抽象。它把不同尺寸的模拟晶体管封装成形状规整、可邻接、满足 DRC/LVS 规则的 PCell；多个 Acell 再组成紧凑但仍可拼接的 Amacro，从而采用更接近数字电路的布局布线方式。现场页面还给出了相较文献中 Stem cell 面积减少 50% 的结果。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-acell-layout.jpg" alt="Acell和Amacro自动版图方法"><figcaption>现场：可邻接 Acell、Amacro 与类数字布局布线</figcaption></figure>
+      <p>更重要的是，Acell 不只服务于自动版图。传统流程先在 schematic 上完成 sizing，再到版图后用寄生参数验证；如果性能退化，就回到前端重新调整。Acell 的形态和局部寄生更可预测，因此可以先生成带物理信息的标注网表，把后端影响回标给尺寸优化，再进行 re-sizing。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-back-annotation.jpg" alt="基于Acell回标的晶体管尺寸优化闭环"><figcaption>现场：利用 Acell back-annotation 缩短 pre-layout 与 post-layout 之间的反复</figcaption></figure>
+      <p>因此，报告中的主流程可以写成：</p>
+      <div class="note"><p><strong>Spec → Topology → Sizing → Acell Layout → Back-annotation → Re-sizing → Verification</strong></p><p>它不是简单的“LLM → EDA Tool”，而是利用稳定的物理抽象，让前端优化能够提前看到未来版图的部分影响。</p></div>
+
+      <h2>六、面积和性能：现场展示了什么</h2>
+      <h3>LDO 对比</h3>
+      <p>在 LDO 页面中，Acell-based layout 的面积为 3544 μm²，相比页面基准 PCell-based layout 的 4800 μm²减少 26%，DRC 与 LVS 违规均为 0，面积利用率为 85.49%。同页 ALIGN 与 MAGICAL 的数据分别来自各自的 28 nm 技术配置，而不是完整商业 PDK，因此这组数字不适合当作严格同条件排名。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-ldo-comparison.jpg" alt="Acell与其他方法生成LDO版图的比较"><figcaption>现场：PCell、ALIGN、MAGICAL 与 Acell-based LDO 的版图比较及条件说明</figcaption></figure>
+
+      <h3>PGA 对比</h3>
+      <p>PGA 案例采用 28 nm 工艺，包含 866 个晶体管和 200 个无源器件。Acell 版图面积由 40,888 μm²降到 38,132 μm²，约减少 7%；页面列出的增益、带宽、输出摆幅和 CMRR 整体处于相近范围，其中部分 CMRR 指标更高。报告将 8-bit DAC、PGA 等样例标记为 silicon-proven。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-pga-comparison.jpg" alt="Acell和PCell实现PGA的面积性能比较"><figcaption>现场：28 nm PGA 的 PCell 与 Acell 版图面积、性能对比</figcaption></figure>
+
+      <h2>七、L1 与 L3 的直接对照</h2>
+      <p>同一场报告把两种路线并排放在一页：Codex 加专家 prompt 的 L1 版本能够完成单颗设计和流片所需链路，但页面给出的版图面积利用率为 42%；AMSclaw+Acell 的 L3 版本为 90%。这组对比的意图是说明，通用智能体可以把任务做完，而专用物理抽象与可复用流程进一步改善执行效率和版图组织。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-l1-vs-l3.jpg" alt="Codex加Cadence与AMSclaw加Acell的比较"><figcaption>现场：L1 单次工程实践与 L3 专用设计流的版图利用率对照</figcaption></figure>
+      <p>两者并非互斥。Codex 仍可以作为上层编排与异常处理入口；AMSclaw 则把稳定的部分沉淀为拓扑库、优化器、Acell 库、验证规则和可回放流程，减少每次从自然语言重新解释任务。</p>
+
+      <h2>八、AMSclaw 的现场结论与适用边界</h2>
+      <p>总结页把 AMSclaw 分成两部分：AMSgen 面向规格驱动的拓扑和尺寸设计，并通过回标连接物理信息；AMSgen-A 面向基于 Acell 的自动版图。页面还把“两套 PDK 的 SerDes tape-out”列为 2026 年 5 月里程碑，但没有在该页进一步说明两套结果的当前验证状态。</p>
+      <figure class="figure"><img src="../assets/images/idas-amsclaw-summary.jpg" alt="AMSclaw的现场总结页面"><figcaption>现场总结：AMSgen、AMSgen-A、6000+ 电路与 silicon-proven 样例</figcaption></figure>
+      <p>从本次展示可以确认的范围是：通用智能体已经能进入商业 EDA 工程链路；AMSclaw 能把规格、拓扑、尺寸、Acell 版图、验证和回标组织成分层流程；LDO 与 PGA 页面给出了面积和性能数据。现场没有展示极端 matching、RF、高频寄生利用或特殊器件组合下的系统结果，也没有证明所有模拟电路都适合被 Acell 化。</p>
+      <p>Acell 通过收敛版图自由度换取自动化与可预测性。它在什么电路上成立、在哪些指标下会限制人工布局可以利用的自由度，仍需要按工艺、频率和电路类别分别验证。</p>
+
+    </article>
+  </main>
+  <script src="../assets/comments.js"></script>
+  <script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches))document.body.classList.add('dark')</script>
+</body>
+</html>
