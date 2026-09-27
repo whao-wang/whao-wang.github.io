@@ -318,7 +318,6 @@ BPR / 背面供电 = 把部分供电压力从正面信号布线中释放出来
 
 ## 参考
 
-- [原始 ChatGPT 对话](https://chatgpt.com/share/6ab8d1e3-807c-83ec-a1ef-3682db09b70a)
 - [imec：Entering the nanosheet transistor era](https://www.imec-int.com/en/articles/entering-nanosheet-transistor-era-0)
 
 > [!note] 口径提醒
