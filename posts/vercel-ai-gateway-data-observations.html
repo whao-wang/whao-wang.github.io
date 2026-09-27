@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="从 Vercel AI Gateway 的请求、Token 与花费份额，看开放权重模型、闭源模型、DeepSeek、GLM 与视频生成模型正在形成怎样的分工。">
+  <title>Vercel 数据有感 · 王豪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
+  <style>
+    html,body{overflow-x:hidden}.post{max-width:920px;margin:auto;padding:90px 24px 130px}.post-back{font:12px 'DM Mono';color:var(--muted)}.post header{margin:75px 0 52px}.post h1{font:600 clamp(46px,8vw,84px)/1.06 Outfit,'Noto Sans SC';letter-spacing:-.05em;margin:18px 0 28px}.post-meta{font:12px 'DM Mono';color:var(--muted)}.post-content{max-width:820px;margin:auto;font-size:18px;line-height:2;color:var(--ink)}.post-content h2{font:600 30px/1.35 Outfit,'Noto Sans SC';margin:68px 0 20px;letter-spacing:-.02em}.post-content p{margin:0 0 25px}.post-content ul{margin:0 0 30px;padding-left:26px}.post-content li{padding-left:5px;margin:7px 0}.post-content strong{font-weight:700}.lead{font-size:22px;line-height:1.75}.note{border-left:3px solid var(--accent);padding:14px 20px;margin:34px 0;background:var(--panel);color:var(--muted);font-size:15px}.table-wrap{overflow-x:auto;margin:28px 0 38px;border-top:1px solid var(--ink)}table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.55}th,td{padding:14px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{font:500 12px 'DM Mono';color:var(--muted);text-transform:uppercase}td:not(:first-child),th:not(:first-child){text-align:right}.quote{font:600 clamp(25px,4vw,38px)/1.55 Outfit,'Noto Sans SC';letter-spacing:-.02em;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:36px 0;margin:48px 0}.source{border-top:1px solid var(--line);margin-top:70px;padding-top:28px;color:var(--muted);font-size:14px}.post-content a{text-decoration:underline;text-underline-offset:4px}@media(max-width:620px){.post{padding-top:65px}.post header{margin-top:55px}.post-content{font-size:17px}.post-content h2{font-size:26px}th,td{padding:12px 9px}}
+  </style>
+</head>
+<body>
+  <main class="post">
+    <a class="post-back" href="../index.html">← BACK TO HOME</a>
+    <header>
+      <p class="eyebrow">AI / MODEL ECONOMICS</p>
+      <h1>Vercel<br>数据有感</h1>
+      <p class="post-meta">2026.09.27 13:20 · 8 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+    </header>
+
+    <article class="post-content">
+      <p class="lead">假期里重点看了看 Jev。它最近在 Vercel AI Gateway 上的请求量很夸张，于是我顺手翻了翻模型排行榜。这组数据很有意思：它展示的不只是“谁更受欢迎”，而是不同模型正在被怎样使用。</p>
+      <div class="note">数据说明：下文截取自 2026 年 9 月 26 日，反映的是 Vercel AI Gateway 内部的调用结构，并不等同于整个大模型市场。请求、Token 和花费，分别代表调用频率、任务吞吐量和消费金额，不能混为一谈。</div>
+
+      <h2>01　开放权重模型在“干活”，闭源模型在“赚钱”</h2>
+      <div class="table-wrap"><table><thead><tr><th>模型类型</th><th>Token 份额</th><th>请求份额</th><th>花费份额</th></tr></thead><tbody><tr><td>开放权重模型</td><td>77.74%</td><td>34.58%</td><td>26.56%</td></tr><tr><td>闭源模型</td><td>22.26%</td><td>65.42%</td><td>73.44%</td></tr></tbody></table></div>
+      <p>开放权重模型只占约三分之一的请求，却完成了接近八成的 Token 吞吐；闭源模型消耗的 Token 不到四分之一，却拿走了七成以上的花费。</p>
+      <p>换句话说，开放权重模型更像执行层：承担长上下文、批处理和成本敏感型任务；闭源模型更像专家层：调用未必最长，但每次调用更贵，也更可能被放在高价值节点。</p>
+      <p>当然，这不是能力高低的直接证明。模型定价、输入输出比例、缓存命中率和具体任务结构，都会影响最终花费。但“执行层”和“专家层”正在分化，这个趋势已经相当明显。</p>
+
+      <h2>02　DeepSeek 已经成为吞吐型基础设施</h2>
+      <div class="table-wrap"><table><thead><tr><th>指标</th><th>DeepSeek V4.1 Flash 份额</th></tr></thead><tbody><tr><td>Token</td><td>61.86%</td></tr><tr><td>Requests</td><td>17.72%</td></tr><tr><td>Spend</td><td>5.16%</td></tr></tbody></table></div>
+      <p>DeepSeek V4.1 Flash 的 Token 份额是请求份额的 3.5 倍：单次请求明显更长。它用 5.16% 的花费，承载了 61.86% 的 Token。</p>
+      <p>这个结构非常像“执行团队”：不一定负责最后的关键判断，却在大量处理成本敏感、上下文很长、需要持续推进的任务。至少在 Vercel 这组样本里，DeepSeek 已经不只是一个热门模型，而是在承担基础设施级吞吐。</p>
+
+      <h2>03　流量不等于价值，稀缺性才有溢价</h2>
+      <div class="table-wrap"><table><thead><tr><th>模型</th><th>花费份额</th><th>Token 份额</th></tr></thead><tbody><tr><td>Kimi K3</td><td>12.94%</td><td>2.84%</td></tr><tr><td>Claude Opus 5.5</td><td>11.61%</td><td>1.81%</td></tr><tr><td>GPT-6 Astra</td><td>10.25%</td><td>未进入前列</td></tr><tr><td>Claude Opus 4.8</td><td>6.24%</td><td>未进入前列</td></tr><tr><td>Gemini 3.8 Flash</td><td>6.00%</td><td>3.60%</td></tr><tr><td>DeepSeek V4.1 Flash</td><td>5.16%</td><td>61.86%</td></tr></tbody></table></div>
+      <p>对比最强烈的是 Claude Opus 5.5 和 DeepSeek V4.1 Flash：前者只占 1.81% 的 Token，却贡献了 11.61% 的花费；后者吃下 61.86% 的 Token，花费份额却只有 5.16%。</p>
+      <p>如果把模型类比成组织中的角色，DeepSeek 更像规模化执行团队，高端闭源模型则更像少量资深专家。企业愿意为真正稀缺的判断、复杂推理和关键决策支付高溢价。</p>
+      <div class="quote">流量可以买来，吞吐可以堆出来，真正稀缺的能力才拥有定价权。</div>
+      <p>Kimi K3 是这张表里的另一个惊喜：Token 份额只有 2.84%，花费份额却达到 12.94%。这至少说明，它已经进入了一批愿意付费的高价值任务，而不只是靠低价换取调用量。</p>
+
+      <h2>04　GLM-5.2、GLM-5.3 去哪里了？</h2>
+      <p>它们并不是没有接入。Vercel 的<a href="https://ai-gateway.vercel.sh/v1/models" target="_blank" rel="noreferrer">模型目录</a>里已经有 GLM-5.2、GLM-5.3，以及相应的 Fast、Flash 和 FlashX 版本；只是完整旗舰版没有进入公开排行榜的头部，调用量被合并进了 <code>Other</code>，因此无法从公开数据算出准确份额。</p>
+      <p>真正跑出来的是 GLM-5.3 Flash。9 月 26 日，它的 Token 份额约为 5.13%，请求份额约为 5.23%，已经进入两个榜单前列。它的公开输入、输出价格分别约为 GLM-5.3 完整版的九分之一，因而更容易成为高频任务的默认选择。</p>
+      <p>这很像一种清晰的产品分层：GLM-5.3 负责困难任务，GLM-5.3 Flash 承担日常流量，GLM-5.2 则是成本更低的上一代旗舰。智谱在 Vercel 生态里获得规模化采用的突破口，目前看不是完整旗舰，而是 Flash。</p>
+
+      <h2>05　模型迭代太快，绑定单一模型的风险越来越大</h2>
+      <p>最近一周，排行榜变化非常剧烈：</p>
+      <ul><li>Jev 的请求份额周均增加约 12.9 个百分点；</li><li>GPT-6 Luna 从零迅速获得约 3.3% 的请求份额；</li><li>Claude Opus 5.5 一周内获得约 7.9% 的花费份额；</li><li>Claude Opus 4.8 的花费份额同期下降约 3.6 个百分点；</li><li>GPT-5.6 Sol 的花费份额下降约 3 个百分点；</li><li>Kimi K3 的花费份额增加约 6.5 个百分点。</li></ul>
+      <p>一周时间，就足以让新模型快速上位，也足以让原来的强势模型明显回落。这意味着，对企业来说，真正应该长期建设的不是“押中某一个模型”，而是模型路由、评测体系、上下文管理和快速切换能力。</p>
+      <p><strong>模型会不断换，任务和数据才是自己的。</strong></p>
+
+      <h2>06　视频生成：中国模型已经形成集团优势</h2>
+      <p>9 月 26 日的视频生成份额中：</p>
+      <ul><li>Seedance 2.0 Fast：21.74%；</li><li>Seedance v1.5 Pro：12.74%；</li><li>Seedance 2.5：9.27%；</li><li>MiniMax H3 Max：5.43%；</li><li>Seedance 2.0：4.03%；</li><li>Kling v3：3.09%；</li><li>Wan v3：约 1.92%。</li></ul>
+      <p>仅 Seedance 几个版本合计就接近 48%。再加上 Kling、MiniMax 和 Wan，中国模型在 Vercel 的视频生成流量里已经形成非常明显的集团优势。</p>
+      <p>这里同样要注意边界：它只能说明 Vercel AI Gateway 这一个渠道中的使用结构，不能直接推出全球视频生成市场份额。但至少在开发者实际调用这一层，中国模型已经不只是“追赶”，而是在占据主导位置。</p>
+
+      <h2>最后的感受</h2>
+      <p>这张排行榜真正有价值的地方，不是告诉我们哪个模型“最好”，而是让我们看到一个逐渐成形的分工体系：</p>
+      <ul><li>低成本开放权重模型承担规模化执行；</li><li>高端闭源模型占据高价值判断节点；</li><li>Flash 类模型成为日常工作负载的主力；</li><li>企业通过路由不同模型，在效果、速度和成本之间动态平衡。</li></ul>
+      <div class="quote">真正稳定的竞争力，是把不同层次的智能组织起来：让便宜的模型多干活，让昂贵的模型只做真正稀缺的事。</div>
+
+      <div class="source">数据来源：<a href="https://vercel.com/ai-gateway/leaderboards/models" target="_blank" rel="noreferrer">Vercel AI Gateway Model Leaderboard ↗</a><br>份额为 2026 年 9 月 26 日截面数据；排行榜持续变化，本文观点仅代表对该样本的观察。</div>
+    </article>
+  </main>
+  <script src="../assets/comments.js"></script>
+  <script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches))document.body.classList.add('dark')</script>
+</body>
+</html>
