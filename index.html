@@ -13,13 +13,14 @@
   <style>.series{margin:0;border:0;background:transparent}.series summary{display:grid;grid-template-columns:70px 1fr 50px;gap:24px;padding:38px 10px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);font:inherit;transition:padding .25s,background .25s}.series summary:hover{padding-inline:22px;background:var(--panel)}.series summary::after{content:none}.series[open] summary{border-bottom:1px solid var(--line)}.series-count{display:none}.series-title,.series-description{display:block}.series-title{font:600 clamp(23px,3vw,38px)/1.25 Outfit,'Noto Sans SC';max-width:810px;margin:12px 0}.series-description{color:var(--muted);margin:0 0 25px}.series .arrow{color:var(--ink)}.series[open] summary .arrow{font-size:0}.series[open] summary .arrow::after{content:'−';font:24px 'DM Mono';color:var(--accent)}.series .article-grid{border-top:0;padding:0}.series + .article-grid{border-top:0}@media(max-width:780px){.series summary{grid-template-columns:40px 1fr;padding:38px 10px}.series summary:hover{padding-inline:10px}.series .arrow{display:none}}</style>
   <style>.writing{display:flex;flex-direction:column}.writing>.section-heading{order:0}.writing>.latest-entry{display:contents}.writing>.latest-entry>a:nth-child(-n+3){order:1}.writing>.latest-entry>a:first-child{border-top:1px solid var(--ink)}.writing>.series{order:2}.writing>.latest-entry>a:nth-child(n+4),.writing>.article-grid:not(.latest-entry){order:3}.series .article-grid a[href*="domestic-eda"]{order:1}.series .article-grid a[href*="uvh-goat"]{order:2}.series .article-grid a[href*="seven-disagreements"]{order:3}.series .article-grid a[href*="logic-folding-and-3d"]{order:4}.series .article-grid a[href*="agentic-eda"]{order:5}.series .article-grid a[href*="tau-law"]{order:6}.series .article-grid a[href*="amsclaw"]{order:7}</style>
   <style>.series .article-grid{display:flex;flex-direction:column}</style>
+  <style>.learning{max-width:none;background:var(--panel);border-block:1px solid var(--line)}.learning>.section-heading,.learning>.article-grid{max-width:1176px;margin-left:auto;margin-right:auto}.learning .article.featured:hover{background:var(--bg)}</style>
   <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="返回首页"><span class="brand-mark">WH</span><span>Hao Wang</span></a>
     <nav aria-label="主导航">
-      <a href="#writing">文章</a><a href="#projects">项目</a><a href="#about">关于</a>
+      <a href="#writing">文章</a><a href="#learning">学习</a><a href="#projects">项目</a><a href="#about">关于</a>
     </nav>
     <button class="theme-toggle" aria-label="切换深浅色" title="切换深浅色">◐</button>
   </header>
@@ -129,8 +130,17 @@
       </div>
     </section>
 
+    <section id="learning" class="section learning">
+      <div class="section-heading reveal"><div><p class="eyebrow">02 / LEARNING</p><h2>学习专区</h2></div><p>把值得反复研读的技术主题，整理成结构化学习报告。</p></div>
+      <div class="article-grid">
+        <a class="article featured reveal" href="posts/laya-training-study-report.html">
+          <div class="article-index">L01</div><div class="article-body"><span class="tag">AGENT × MODEL TRAINING</span><h3>Laya 训练方法学习报告</h3><p>从动态选项、软概率和 RLCD，到 Proper Scoring Rule、温度校准与领域微调。</p><div class="meta"><time datetime="2026-09-27">2026.09.27</time><span>20 MIN READ</span><span>MARKDOWN 可下载</span></div></div><span class="arrow">↗</span>
+        </a>
+      </div>
+    </section>
+
     <section id="projects" class="section projects">
-      <div class="section-heading reveal"><div><p class="eyebrow">02 / EXPLORATIONS</p><h2>代码与探索</h2></div></div>
+      <div class="section-heading reveal"><div><p class="eyebrow">03 / EXPLORATIONS</p><h2>代码与探索</h2></div></div>
       <div class="project-list">
         <a class="project reveal" href="https://github.com/whao-wang/DRAMsim3" target="_blank" rel="noreferrer"><span class="project-no">01</span><div><h3>DRAMsim3</h3><p>周期精确、支持热模型的 DRAM 模拟器</p></div><span class="project-type">MEMORY SYSTEMS ↗</span></a>
         <a class="project reveal" href="https://github.com/whao-wang/Thinking-with-Visual-Primitives" target="_blank" rel="noreferrer"><span class="project-no">02</span><div><h3>Thinking with Visual Primitives</h3><p>探索视觉原语如何参与模型推理</p></div><span class="project-type">VISUAL REASONING ↗</span></a>
@@ -139,7 +149,7 @@
     </section>
 
     <section id="about" class="section about reveal">
-      <div><p class="eyebrow">03 / ABOUT</p><h2>让知识穿过<br>组织的边界。</h2></div>
+      <div><p class="eyebrow">04 / ABOUT</p><h2>让知识穿过<br>组织的边界。</h2></div>
       <div class="about-copy"><p>华中科技大学毕业。曾在华为 2012 实验室与阿里云专注 AI，如今在 CXMT 推动智能化半导体研发。</p><p>我关心的不是“AI 能做什么”的演示，而是它如何进入真实、复杂、对可靠性要求极高的工程现场。</p><a href="https://github.com/whao-wang" target="_blank" rel="noreferrer">在 GitHub 找到我 <span>↗</span></a></div>
     </section>
   </main>
