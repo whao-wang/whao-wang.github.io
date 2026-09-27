@@ -14,6 +14,7 @@
   <style>.writing{display:flex;flex-direction:column}.writing>.section-heading{order:0}.writing>.latest-entry{display:contents}.writing>.latest-entry>a:nth-child(-n+3){order:1}.writing>.latest-entry>a:first-child{border-top:1px solid var(--ink)}.writing>.series{order:2}.writing>.latest-entry>a:nth-child(n+4),.writing>.article-grid:not(.latest-entry){order:3}.series .article-grid a[href*="domestic-eda"]{order:1}.series .article-grid a[href*="uvh-goat"]{order:2}.series .article-grid a[href*="seven-disagreements"]{order:3}.series .article-grid a[href*="logic-folding-and-3d"]{order:4}.series .article-grid a[href*="agentic-eda"]{order:5}.series .article-grid a[href*="tau-law"]{order:6}.series .article-grid a[href*="amsclaw"]{order:7}</style>
   <style>.series .article-grid{display:flex;flex-direction:column}</style>
   <style>.learning{max-width:none;background:var(--panel);border-block:1px solid var(--line)}.learning>.section-heading,.learning>.article-grid{max-width:1176px;margin-left:auto;margin-right:auto}.learning .article.featured:hover{background:var(--bg)}</style>
+  <style>.writing-fold>summary{cursor:pointer;list-style:none;position:relative;padding-right:68px}.writing-fold>summary::-webkit-details-marker{display:none}.writing-fold>summary::after{content:'＋';position:absolute;right:10px;bottom:4px;font:30px 'DM Mono';color:var(--accent)}.writing-fold[open]>summary::after{content:'−'}.writing-fold>.writing{width:100%}@media(max-width:780px){.writing-fold>summary{padding-right:48px}.writing-fold>summary::after{right:4px;bottom:24px}}</style>
   <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 </head>
 <body>
@@ -48,8 +49,10 @@
       <div><span>INTELLIGENT R&D</span><i>✦</i><span>AI AGENTS</span><i>✦</i><span>SEMICONDUCTOR</span><i>✦</i><span>SYSTEM THINKING</span><i>✦</i></div>
     </section>
 
-    <section id="writing" class="section writing">
-      <div class="section-heading reveal"><div><p class="eyebrow">01 / WRITING</p><h2>最近在想</h2></div><p>把工作中的复杂问题，整理成可以复用的思考框架。</p></div>
+    <section id="writing" class="section">
+      <details class="writing-fold">
+      <summary class="section-heading reveal"><div><p class="eyebrow">01 / WRITING</p><h2>最近在想</h2></div><p>把工作中的复杂问题，整理成可以复用的思考框架。点击展开全部文章。</p></summary>
+      <div class="writing">
       <div class="article-grid latest-entry">
         <a class="article featured reveal" href="posts/vercel-ai-gateway-data-observations.html">
           <div class="article-index">NEW</div><div class="article-body"><span class="tag">AI × 模型经济学</span><h3>Vercel 数据有感</h3><p>从请求、Token 与花费份额，看开放权重模型、闭源模型和不同层级的智能如何形成分工。</p><div class="meta"><time datetime="2026-09-27T13:20:06+08:00">2026.09.27 13:20</time><span>6 MIN READ</span></div></div><span class="arrow">↗</span>
@@ -128,6 +131,8 @@
           <div class="article-index">015</div><div class="article-body"><span class="tag">成长与选择</span><h3>与华科学弟学妹交流思考</h3><p>关于前辈、个人杠杆、AI 时代的站位，以及持续解决核心问题。</p><div class="meta"><time datetime="2026-07-28">2026.07.28</time><span>4 MIN READ</span></div></div><span class="arrow">↗</span>
         </a>
       </div>
+      </div>
+      </details>
     </section>
 
     <section id="learning" class="section learning">
