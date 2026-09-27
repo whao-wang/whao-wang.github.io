@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="关于 Agent 安全基础设施的一点随想：下一场 AI 战争，可能属于云厂商。">
+  <title>随想：下一场战争是云厂商的主场 · 王豪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
+  <style>
+    html,body{overflow-x:hidden}.post{max-width:920px;margin:auto;padding:90px 24px 130px}.post-back{font:12px 'DM Mono';color:var(--muted)}.post header{margin:75px 0 52px}.post h1{font:600 clamp(46px,8vw,84px)/1.06 Outfit,'Noto Sans SC';letter-spacing:-.05em;margin:18px 0 28px}.post-meta{font:12px 'DM Mono';color:var(--muted)}.post-content{max-width:820px;margin:auto;font-size:18px;line-height:2;color:var(--ink)}.post-content h2{font:600 30px/1.35 Outfit,'Noto Sans SC';margin:68px 0 20px;letter-spacing:-.02em}.post-content p{margin:0 0 25px}.post-content ul{margin:0 0 30px;padding-left:26px}.post-content li{padding-left:5px;margin:7px 0}.post-content strong{font-weight:700}.lead{font-size:22px;line-height:1.75}.note{border-left:3px solid var(--accent);padding:14px 20px;margin:34px 0;background:var(--panel);color:var(--muted);font-size:15px}.table-wrap{overflow-x:auto;margin:28px 0 38px;border-top:1px solid var(--ink)}table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.55}th,td{padding:14px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{font:500 12px 'DM Mono';color:var(--muted);text-transform:uppercase}td:not(:first-child),th:not(:first-child){text-align:right}.quote{font:600 clamp(25px,4vw,38px)/1.55 Outfit,'Noto Sans SC';letter-spacing:-.02em;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:36px 0;margin:48px 0}.source{border-top:1px solid var(--line);margin-top:70px;padding-top:28px;color:var(--muted);font-size:14px}.post-content a{text-decoration:underline;text-underline-offset:4px}@media(max-width:620px){.post{padding-top:65px}.post header{margin-top:55px}.post-content{font-size:17px}.post-content h2{font-size:26px}th,td{padding:12px 9px}}
+  </style>
+</head>
+<body>
+  <main class="post">
+    <a class="post-back" href="../index.html#writing">← BACK TO WRITING</a>
+    <header>
+      <p class="eyebrow">THOUGHTS / AI INFRASTRUCTURE</p>
+      <h1>下一场战争<br>是云厂商的主场</h1>
+      <p class="post-meta">2026.09.27 · 3 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+    </header>
+
+    <article class="post-content">      <p class="lead">看完一篇关于 Agent 安全基础设施的文章，我突然意识到：下一场 AI 战争，可能不在模型路由层，而在云厂商的主场。</p>
+      <p>OpenRouter 这类模型路由平台的竞争，或许正在接近一个阶段性终点。随着云厂商把安全、执行环境和监控能力整合进基础设施，后续产品未必还需要一个独立的中间层定位。</p>
+
+      <h2>云厂商真正擅长的三件事</h2>
+      <ol>
+        <li><strong>机密虚拟机</strong>：为 Agent 提供隔离、可控的执行环境。</li>
+        <li><strong>安全凭据存储系统</strong>：让 Agent 在不直接暴露敏感凭据的情况下完成任务。</li>
+        <li><strong>监控 Agent</strong>：检查进出虚拟机的流量，识别提示词注入，判断 Muse 是否准备把用户不愿公开的信息传输出去，并在必要时触发人工确认。</li>
+      </ol>
+
+      <p>这些能力都不是简单的模型调用，而是和计算、网络、安全、权限与合规深度绑定的基础设施能力。</p>
+      <div class="quote">下一场竞争的主战场，可能不再只是“谁能把更多模型接进来”，而是：谁能让 Agent 在真实世界里安全、可靠、可控地执行任务。</div>
+      <div class="source">灵感来源：<a href="https://mp.weixin.qq.com/s/0tV6WXO7S_ekdmwBLvJACQ?scene=1" target="_blank" rel="noreferrer">原文链接 ↗</a></div>
+    </article>
+  </main>
+  <script src="../assets/comments.js"></script>
+  <script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches))document.body.classList.add('dark')</script>
+</body>
+</html>
+
