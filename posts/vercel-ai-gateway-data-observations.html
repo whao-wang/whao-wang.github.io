@@ -20,48 +20,43 @@
     <header>
       <p class="eyebrow">AI / MODEL ECONOMICS</p>
       <h1>Vercel<br>数据有感</h1>
-      <p class="post-meta">2026.09.27 13:20 · 8 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
+      <p class="post-meta">2026.09.27 13:20 · 6 MIN READ · 阅读 <span id="busuanzi_page_pv" aria-live="polite">--</span> 次</p>
     </header>
 
     <article class="post-content">
       <p class="lead">假期里重点看了看 Jev。它最近在 Vercel AI Gateway 上的请求量很夸张，于是我顺手翻了翻模型排行榜。</p>
-      <div class="note">数据说明：下文截取自 2026 年 9 月 26 日，反映的是 Vercel AI Gateway 内部的调用结构，并不等同于整个大模型市场。请求、Token 和花费，分别代表调用频率、任务吞吐量和消费金额，不能混为一谈。</div>
+      <div class="note">下文数据截取自 2026 年 9 月 26 日，只反映 Vercel AI Gateway 内部的调用结构，不代表整个大模型市场。请求、Token 和花费，分别对应调用频率、任务吞吐量和消费金额。</div>
 
       <h2>01　开放权重模型在“干活”，闭源模型在“赚钱”</h2>
       <div class="table-wrap"><table><thead><tr><th>模型类型</th><th>Token 份额</th><th>请求份额</th><th>花费份额</th></tr></thead><tbody><tr><td>开放权重模型</td><td>77.74%</td><td>34.58%</td><td>26.56%</td></tr><tr><td>闭源模型</td><td>22.26%</td><td>65.42%</td><td>73.44%</td></tr></tbody></table></div>
       <p>开放权重模型只占约三分之一的请求，却完成了接近八成的 Token 吞吐；闭源模型消耗的 Token 不到四分之一，却拿走了七成以上的花费。</p>
-      <p>换句话说，开放权重模型更像执行层：承担长上下文、批处理和成本敏感型任务；闭源模型更像专家层：调用未必最长，但每次调用更贵，也更可能被放在高价值节点。</p>
-      <p>当然，这不是能力高低的直接证明。模型定价、输入输出比例、缓存命中率和具体任务结构，都会影响最终花费。但“执行层”和“专家层”正在分化，这个趋势已经相当明显。</p>
+      <p>开放权重模型更像执行层，承担长上下文、批处理和成本敏感型任务；闭源模型更像专家层，被放在更高价值的节点。当然，花费还会受到定价、输入输出比例和缓存命中率等因素影响，不能直接等同于能力。</p>
 
       <h2>02　DeepSeek 已经成为吞吐型基础设施</h2>
       <div class="table-wrap"><table><thead><tr><th>指标</th><th>DeepSeek V4.1 Flash 份额</th></tr></thead><tbody><tr><td>Token</td><td>61.86%</td></tr><tr><td>Requests</td><td>17.72%</td></tr><tr><td>Spend</td><td>5.16%</td></tr></tbody></table></div>
-      <p>DeepSeek V4.1 Flash 的 Token 份额是请求份额的 3.5 倍：单次请求明显更长。它用 5.16% 的花费，承载了 61.86% 的 Token。</p>
-      <p>这个结构非常像“执行团队”：不一定负责最后的关键判断，却在大量处理成本敏感、上下文很长、需要持续推进的任务。至少在 Vercel 这组样本里，DeepSeek 已经不只是一个热门模型，而是在承担基础设施级吞吐。</p>
+      <p>DeepSeek V4.1 Flash 的 Token 份额是请求份额的 3.5 倍，并以 5.16% 的花费承载了 61.86% 的 Token。它很像“执行团队”：未必负责最后的关键判断，却在处理大量成本敏感、上下文很长的任务。至少在 Vercel 这组样本里，DeepSeek 已经承担了基础设施级吞吐。</p>
 
       <h2>03　流量不等于价值，稀缺性才有溢价</h2>
       <div class="table-wrap"><table><thead><tr><th>模型</th><th>花费份额</th><th>Token 份额</th></tr></thead><tbody><tr><td>Kimi K3</td><td>12.94%</td><td>2.84%</td></tr><tr><td>Claude Opus 5.5</td><td>11.61%</td><td>1.81%</td></tr><tr><td>GPT-6 Astra</td><td>10.25%</td><td>未进入前列</td></tr><tr><td>Claude Opus 4.8</td><td>6.24%</td><td>未进入前列</td></tr><tr><td>Gemini 3.8 Flash</td><td>6.00%</td><td>3.60%</td></tr><tr><td>DeepSeek V4.1 Flash</td><td>5.16%</td><td>61.86%</td></tr></tbody></table></div>
-      <p>对比最强烈的是 Claude Opus 5.5 和 DeepSeek V4.1 Flash：前者只占 1.81% 的 Token，却贡献了 11.61% 的花费；后者吃下 61.86% 的 Token，花费份额却只有 5.16%。</p>
-      <p>如果把模型类比成组织中的角色，DeepSeek 更像规模化执行团队，高端闭源模型则更像少量资深专家。企业愿意为真正稀缺的判断、复杂推理和关键决策支付高溢价。</p>
+      <p>Claude Opus 5.5 只占 1.81% 的 Token，却贡献了 11.61% 的花费；DeepSeek V4.1 Flash 吃下 61.86% 的 Token，花费份额却只有 5.16%。前者像少量资深专家，后者像规模化执行团队。</p>
       <div class="quote">流量可以买来，吞吐可以堆出来，真正稀缺的能力才拥有定价权。</div>
-      <p>Kimi K3 是这张表里的另一个惊喜：Token 份额只有 2.84%，花费份额却达到 12.94%。这至少说明，它已经进入了一批愿意付费的高价值任务，而不只是靠低价换取调用量。</p>
+      <p>Kimi K3 同样值得关注：2.84% 的 Token 对应 12.94% 的花费，说明它已经进入了一批愿意付费的高价值任务。</p>
 
       <h2>04　GLM-5.2、GLM-5.3 去哪里了？</h2>
       <p>它们并不是没有接入。Vercel 的<a href="https://ai-gateway.vercel.sh/v1/models" target="_blank" rel="noreferrer">模型目录</a>里已经有 GLM-5.2、GLM-5.3，以及相应的 Fast、Flash 和 FlashX 版本；只是完整旗舰版没有进入公开排行榜的头部，调用量被合并进了 <code>Other</code>，因此无法从公开数据算出准确份额。</p>
       <h2>05　模型迭代太快，绑定单一模型的风险越来越大</h2>
       <p>最近一周，排行榜变化非常剧烈：</p>
       <ul><li>Jev 的请求份额周均增加约 12.9 个百分点；</li><li>GPT-6 Luna 从零迅速获得约 3.3% 的请求份额；</li><li>Claude Opus 5.5 一周内获得约 7.9% 的花费份额；</li><li>Claude Opus 4.8 的花费份额同期下降约 3.6 个百分点；</li><li>GPT-5.6 Sol 的花费份额下降约 3 个百分点；</li><li>Kimi K3 的花费份额增加约 6.5 个百分点。</li></ul>
-      <p>一周时间，就足以让新模型快速上位，也足以让原来的强势模型明显回落。这意味着，对企业来说，真正应该长期建设的不是“押中某一个模型”，而是模型路由、评测体系、上下文管理和快速切换能力。</p>
-      <p><strong>模型会不断换，任务和数据才是自己的。</strong></p>
+      <p>一周就足以让新模型上位，也足以让强势模型回落。企业不该“押中某一个模型”，而应建设模型路由、评测体系、上下文管理和快速切换能力。<strong>模型会不断换，任务和数据才是自己的。</strong></p>
 
       <h2>06　视频生成：中国模型已经形成集团优势</h2>
       <p>9 月 26 日的视频生成份额中：</p>
       <ul><li>Seedance 2.0 Fast：21.74%；</li><li>Seedance v1.5 Pro：12.74%；</li><li>Seedance 2.5：9.27%；</li><li>MiniMax H3 Max：5.43%；</li><li>Seedance 2.0：4.03%；</li><li>Kling v3：3.09%；</li><li>Wan v3：约 1.92%。</li></ul>
-      <p>仅 Seedance 几个版本合计就接近 48%。再加上 Kling、MiniMax 和 Wan，中国模型在 Vercel 的视频生成流量里已经形成非常明显的集团优势。</p>
-      <p>这里同样要注意边界：它只能说明 Vercel AI Gateway 这一个渠道中的使用结构，不能直接推出全球视频生成市场份额。但至少在开发者实际调用这一层，中国模型已经不只是“追赶”，而是在占据主导位置。</p>
+      <p>Seedance 几个版本合计接近 48%。再加上 Kling、MiniMax 和 Wan，中国模型在 Vercel 的视频生成流量中已形成集团优势。这不等于全球市场份额，但至少在开发者实际调用这一层，中国模型已不只是“追赶”。</p>
 
       <h2>最后的感受</h2>
-      <p>对我们来说，这组数据最直接的提醒是：目前我们大量依赖 GLM-5.2 和 GLM-5.3，下一步必须把模型分层做好，不能让所有任务都默认使用同一层级的模型。重复性强、吞吐量大、成本敏感的任务，可以交给更便宜的模型；复杂判断和关键节点，再调用能力更强、价格更高的模型。</p>
-      <p>与此同时，Kimi 要尽快接入，放进真实业务场景中评测。只有形成多个模型可比较、可路由、可切换的组合，才能降低对单一模型的依赖，并在效果、速度和成本之间找到更合适的平衡。</p>
+      <p>我们目前大量依赖 GLM-5.2 和 GLM-5.3，下一步必须做好模型分层：重复、高吞吐、成本敏感的任务交给便宜模型，复杂判断和关键节点再调用昂贵模型。</p>
+      <p>同时尽快接入 Kimi，在真实业务中评测，形成可比较、可路由、可切换的模型组合，降低单一模型依赖。</p>
       <div class="quote">真正稳定的竞争力，是把不同层次的智能组织起来：让便宜的模型多干活，让昂贵的模型只做真正稀缺的事。</div>
 
       <div class="source">数据来源：<a href="https://vercel.com/ai-gateway/leaderboards/models" target="_blank" rel="noreferrer">Vercel AI Gateway Model Leaderboard ↗</a><br>份额为 2026 年 9 月 26 日截面数据；排行榜持续变化，本文观点仅代表对该样本的观察。</div>
